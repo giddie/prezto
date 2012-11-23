@@ -54,7 +54,7 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 #
 
 # List directory contents after changing directory
-#zstyle ':prezto:module:utility' ls-after-cd 'yes'
+zstyle ':prezto:module:utility' ls-after-cd 'yes'
 
 #
 # Git
