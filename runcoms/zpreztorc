@@ -50,6 +50,13 @@ zstyle ':prezto:module:editor' keymap 'vi'
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 #
+# Utility
+#
+
+# List directory contents after changing directory
+#zstyle ':prezto:module:utility' ls-after-cd 'yes'
+
+#
 # Git
 #
 

@@ -100,6 +100,12 @@ alias sl='ls'            # I often screw this up.
 function se { SUDO_EDITOR=$1 sudoedit $(echo $* | cut -d ' ' -f 2-) }
 alias se="nocorrect se"
 
+# List directory after cd
+if zstyle -t ':prezto:module:utility' ls-after-cd; then
+  function list-directory { ls }
+  chpwd_functions=($chpwd_functions list-directory)
+fi
+
 # Desktop Environment integration
 if [[ "$OSTYPE" == darwin* ]]; then
   alias get='curl --continue-at - --location --progress-bar --remote-name --remote-time'
