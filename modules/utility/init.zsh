@@ -12,6 +12,7 @@ pmodload 'helper' 'spectrum'
 
 # Correct commands.
 setopt CORRECT
+setopt CORRECT_ALL
 
 #
 # Aliases
@@ -45,20 +46,14 @@ alias scp='noglob scp'
 alias sftp='noglob sftp'
 
 # Define general aliases.
-alias _='sudo'
-alias b='${(z)BROWSER}'
 alias cp="${aliases[cp]:-cp} -i"
-alias e='${(z)VISUAL:-${(z)EDITOR}}'
 alias ln="${aliases[ln]:-ln} -i"
 alias mkdir="${aliases[mkdir]:-mkdir} -p"
 alias mv="${aliases[mv]:-mv} -i"
-alias p='${(z)PAGER}'
-alias po='popd'
-alias pu='pushd'
 alias rm="${aliases[rm]:-rm} -i"
 alias type='type -a'
 
-# ls
+# The 'ls' family
 if is-callable 'dircolors'; then
   # GNU Core Utilities
   alias ls='ls --group-directories-first'
@@ -101,27 +96,27 @@ alias lc='lt -c'         # Lists sorted by date, most recent last, shows change 
 alias lu='lt -u'         # Lists sorted by date, most recent last, shows access time.
 alias sl='ls'            # I often screw this up.
 
-# Mac OS X Everywhere
+# Sudo-Edit
+function se { SUDO_EDITOR=$1 sudoedit $(echo $* | cut -d ' ' -f 2-) }
+alias se="nocorrect se"
+
+# Desktop Environment integration
 if [[ "$OSTYPE" == darwin* ]]; then
-  alias o='open'
   alias get='curl --continue-at - --location --progress-bar --remote-name --remote-time'
 else
-  alias o='xdg-open'
+  alias open='xdg-open'
   alias get='wget --continue --progress=bar --timestamping'
 
   if (( $+commands[xclip] )); then
-    alias pbcopy='xclip -selection clipboard -in'
-    alias pbpaste='xclip -selection clipboard -out'
+    alias cbcopy='xclip -selection clipboard -in'
+    alias cppaste='xclip -selection clipboard -out'
   fi
 
   if (( $+commands[xsel] )); then
-    alias pbcopy='xsel --clipboard --input'
-    alias pbpaste='xsel --clipboard --output'
+    alias cbcopy='xsel --clipboard --input'
+    alias cbpaste='xsel --clipboard --output'
   fi
 fi
-
-alias pbc='pbcopy'
-alias pbp='pbpaste'
 
 # Resource Usage
 alias df='df -kh'
