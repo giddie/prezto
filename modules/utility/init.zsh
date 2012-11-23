@@ -97,7 +97,7 @@ alias lu='lt -u'         # Lists sorted by date, most recent last, shows access 
 alias sl='ls'            # I often screw this up.
 
 # Sudo-Edit
-function se { SUDO_EDITOR=$1 sudoedit $(echo $* | cut -d ' ' -f 2-) }
+function se { SUDO_EDITOR="$1" sudoedit ${*:2} }
 alias se="nocorrect se"
 
 # List directory after cd
