@@ -28,6 +28,7 @@ zstyle -s ':prezto:module:git:status:ignore' submodules '_git_status_ignore_subm
 
 # Git
 alias g='git'
+alias gg='git status'
 
 # Branch (b)
 alias gb='git branch'
@@ -71,7 +72,7 @@ alias gfm='git pull'
 alias gfr='git pull --rebase'
 
 # Grep (g)
-alias gg='git grep'
+alias ggp='git grep'
 alias ggi='git grep --ignore-case'
 alias ggl='git grep --files-with-matches'
 alias ggL='git grep --files-without-matches'
