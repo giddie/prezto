@@ -107,21 +107,27 @@ if zstyle -t ':prezto:module:utility' ls-after-cd; then
 fi
 
 # Desktop Environment integration
-if [[ "$OSTYPE" == darwin* ]]; then
-  alias get='curl --continue-at - --location --progress-bar --remote-name --remote-time'
+if [[ "$OSTYPE" == cygwin* ]]; then
+  alias open='cygstart'
+  alias cbcopy='tee > /dev/clipboard'
+  alias cbpaste='cat /dev/clipboard'
 else
   alias open='xdg-open'
-  alias get='wget --continue --progress=bar --timestamping'
 
   if (( $+commands[xclip] )); then
     alias cbcopy='xclip -selection clipboard -in'
-    alias cppaste='xclip -selection clipboard -out'
-  fi
-
-  if (( $+commands[xsel] )); then
+    alias cbpaste='xclip -selection clipboard -out'
+  elif (( $+commands[xsel] )); then
     alias cbcopy='xsel --clipboard --input'
     alias cbpaste='xsel --clipboard --output'
   fi
+fi
+
+# File Download
+if (( $+commands[curl] )); then
+  alias get='curl --continue-at - --location --progress-bar --remote-name --remote-time'
+elif (( $+commands[wget] )); then
+  alias get='wget --continue --progress=bar --timestamping'
 fi
 
 # Resource Usage
