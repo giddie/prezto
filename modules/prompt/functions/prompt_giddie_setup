@@ -20,10 +20,10 @@ function prompt_giddie_precmd {
   # Choose prompt symbol based on whether or not we are in a repository.
   if (( $+commands[git] )) && git rev-parse 2> /dev/null; then
     _prompt_giddie_symbol='±'
-    vcs_info
   else
     _prompt_giddie_symbol=')'
   fi
+  vcs_info
 }
 
 function prompt_giddie_setup {
@@ -39,7 +39,7 @@ function prompt_giddie_setup {
   add-zsh-hook precmd prompt_giddie_precmd
 
   zstyle ':prezto:module:editor:info:completing' format '%F{green}...%f'
-  zstyle ':prezto:module:editor:info:keymap:alternate' format '%F{yellow}--- VI-COMMAND ---%f'
+  zstyle ':prezto:module:editor:info:keymap:alternate' format '%F{yellow}--- COMMAND ---%f'
   zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:*' check-for-changes true
   zstyle ':vcs_info:*' formats ' on %F{magenta}%b%f%c%u'
@@ -51,7 +51,7 @@ function prompt_giddie_setup {
   PROMPT='%(?..%F{red}%B-> [%?]%b%f
 )%F{magenta}%n%f@%F{yellow}%m%f|%F{green}${_prompt_giddie_pwd}%f${vcs_info_msg_0_}
 %F{blue}${_prompt_giddie_symbol}%f '
-  RPROMPT=
+  RPROMPT='${editor_info[keymap]}'
   SPROMPT='zsh: correct %F{magenta}%R%f to %F{green}%r%f [nyae]? '
 }
 
