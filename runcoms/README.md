@@ -48,7 +48,7 @@ zprofile and zlogin are not meant to be used concurrently but can be done so.
 This file is sourced by interactive shells. It should define aliases,
 functions, shell options, and key bindings.
 
-## zpreztorc
+### zpreztorc
 
 This file configures Prezto.
 
@@ -77,4 +77,3 @@ Authors
 [2]: http://en.wikipedia.org/wiki/Fortune_(Unix)
 [3]: http://www.manpagez.com/man/1/msgs
 [4]: https://github.com/sorin-ionescu/prezto/issues
-

@@ -16,4 +16,3 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/local.zsh" ]]; then
 fi
 
 # Customize to your needs...
-

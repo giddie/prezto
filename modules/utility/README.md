@@ -50,6 +50,7 @@ Aliases
 
 ### Disabled File Globbing
 
+  - `bower`
   - `fc`
   - `find`
   - `ftp`
@@ -155,4 +156,3 @@ Authors
   - [Sorin Ionescu](https://github.com/sorin-ionescu)
 
 [1]: https://github.com/sorin-ionescu/prezto/issues
-

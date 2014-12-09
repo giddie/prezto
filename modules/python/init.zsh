@@ -16,9 +16,12 @@ elif (( $+commands[pyenv] )); then
   eval "$(pyenv init -)"
 
 # Prepend PEP 370 per user site packages directory, which defaults to
-# ~/Library/Python on Mac OS X and ~/.local elsewhere, to PATH.
+# ~/Library/Python on Mac OS X and ~/.local elsewhere, to PATH. The
+# path can be overridden using PYTHONUSERBASE.
 else
-  if [[ "$OSTYPE" == darwin* ]]; then
+  if [[ -n "$PYTHONUSERBASE" ]]; then
+    path=($PYTHONUSERBASE/bin $path)
+  elif [[ "$OSTYPE" == darwin* ]]; then
     path=($HOME/Library/Python/*/bin(N) $path)
   else
     # This is subject to change.
@@ -32,14 +35,14 @@ if (( ! $+commands[python] && ! $+commands[pyenv] )); then
 fi
 
 # Load virtualenvwrapper into the shell session.
-if (( $+commands[virtualenvwrapper_lazy.sh] )); then
+if (( $+commands[virtualenvwrapper.sh] )); then
   # Set the directory where virtual environments are stored.
   export WORKON_HOME="$HOME/.virtualenvs"
 
   # Disable the virtualenv prompt.
   VIRTUAL_ENV_DISABLE_PROMPT=1
 
-  source "$commands[virtualenvwrapper_lazy.sh]"
+  source "$commands[virtualenvwrapper.sh]"
 fi
 
 #
@@ -47,4 +50,3 @@ fi
 #
 
 alias py='python'
-

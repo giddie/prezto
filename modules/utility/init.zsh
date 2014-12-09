@@ -35,6 +35,7 @@ alias mysql='nocorrect mysql'
 alias rm='nocorrect rm'
 
 # Disable globbing.
+alias bower='noglob bower'
 alias fc='noglob fc'
 alias find='noglob find'
 alias ftp='noglob ftp'
@@ -60,9 +61,9 @@ if is-callable 'dircolors'; then
 
   if zstyle -t ':prezto:module:utility:ls' color; then
     if [[ -s "$HOME/.dir_colors" ]]; then
-      eval "$(dircolors "$HOME/.dir_colors")"
+      eval "$(dircolors --sh "$HOME/.dir_colors")"
     else
-      eval "$(dircolors)"
+      eval "$(dircolors --sh)"
     fi
 
     alias ls="$aliases[ls] --color=auto"
@@ -95,6 +96,14 @@ alias lt='ll -tr'        # Lists sorted by date, most recent last.
 alias lc='lt -c'         # Lists sorted by date, most recent last, shows change time.
 alias lu='lt -u'         # Lists sorted by date, most recent last, shows access time.
 alias sl='ls'            # I often screw this up.
+
+# Grep
+if zstyle -t ':prezto:module:utility:grep' color; then
+  export GREP_COLOR='37;45'           # BSD.
+  export GREP_COLORS="mt=$GREP_COLOR" # GNU.
+
+  alias grep="$aliases[grep] --color=auto"
+fi
 
 # Sudo-Edit
 function se { SUDO_EDITOR="$1" sudoedit ${*:2} }
@@ -184,4 +193,3 @@ function find-exec {
 function psu {
   ps -U "${1:-$USER}" -o 'pid,%cpu,%mem,command' "${(@)argv[2,-1]}"
 }
-

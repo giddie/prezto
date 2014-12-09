@@ -15,7 +15,7 @@ fi
 # Auto Start
 #
 
-if [[ -z "$STY" ]] && ( \
+if [[ -z "$STY" && -z "$EMACS" && -z "$VIM" ]] && ( \
   ( [[ -n "$SSH_TTY" ]] && zstyle -t ':prezto:module:screen:auto-start' remote ) ||
   ( [[ -z "$SSH_TTY" ]] && zstyle -t ':prezto:module:screen:auto-start' local ) \
 ); then
@@ -40,4 +40,3 @@ alias scr='screen'
 alias scrl='screen -list'
 alias scrn='screen -U -S'
 alias scrr='screen -a -A -U -D -R'
-
