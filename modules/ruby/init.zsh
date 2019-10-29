@@ -15,8 +15,8 @@ if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
   source "$HOME/.rvm/scripts/rvm"
 
 # Load manually installed rbenv into the shell session.
-elif [[ -s "$HOME/.rbenv/bin/rbenv" ]]; then
-  path=("$HOME/.rbenv/bin" $path)
+elif [[ -s "${RBENV_ROOT:=$HOME/.rbenv}/bin/rbenv" ]]; then
+  path=("${RBENV_ROOT}/bin" $path)
   eval "$(rbenv init - --no-rehash zsh)"
 
 # Load package manager installed rbenv into the shell session.
@@ -25,9 +25,14 @@ elif (( $+commands[rbenv] )); then
 
 # Load package manager installed chruby into the shell session.
 elif (( $+commands[chruby-exec] )); then
-  source "${commands[chruby-exec]:h:h}/share/chruby/chruby.sh"
+  if (( ! $+functions[chruby] )); then
+    source "${commands[chruby-exec]:h:h}/share/chruby/chruby.sh"
+  fi
+
   if zstyle -t ':prezto:module:ruby:chruby' auto-switch; then
-    source "${commands[chruby-exec]:h:h}/share/chruby/auto.sh"
+    if (( ! $+functions[chruby_auto] )); then
+      source "${commands[chruby-exec]:h:h}/share/chruby/auto.sh"
+    fi
 
     # If a default Ruby is set, switch to it.
     chruby_auto
@@ -53,6 +58,7 @@ alias rb='ruby'
 # Bundler
 if (( $+commands[bundle] )); then
   alias rbb='bundle'
+  alias rbbc='bundle clean'
   alias rbbe='bundle exec'
   alias rbbi='bundle install --path vendor/bundle'
   alias rbbl='bundle list'

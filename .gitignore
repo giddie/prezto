@@ -2,3 +2,4 @@
 *.zwc.old
 modules/*/cache.zsh
 /local.zsh
+contrib

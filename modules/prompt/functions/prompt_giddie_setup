@@ -37,7 +37,7 @@ function prompt_giddie_precmd {
 function prompt_giddie_setup {
   setopt LOCAL_OPTIONS
   unsetopt XTRACE KSH_ARRAYS
-  prompt_opts=(cr percent subst)
+  prompt_opts=(cr percent sp subst)
 
   # Load required functions.
   autoload -Uz vcs_info
@@ -45,6 +45,9 @@ function prompt_giddie_setup {
 
   # Add hook to set up prompt parameters before each command.
   add-zsh-hook precmd prompt_giddie_precmd
+
+  # Tell prezto we can manage this prompt
+  zstyle ':prezto:module:prompt' managed 'yes'
 
   # Set editor-info parameters.
   zstyle ':prezto:module:editor:info:completing' format '%F{green}...%f'
@@ -74,3 +77,4 @@ function prompt_giddie_setup {
 
 prompt_giddie_setup "$@"
 
+# vim: ft=zsh

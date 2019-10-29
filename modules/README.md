@@ -3,17 +3,24 @@ Modules
 
 Load modules in *zpreztorc*. The order matters.
 
-    zstyle ':prezto:load' pmodule 'environment' 'terminal'
+```sh
+zstyle ':prezto:load' pmodule 'environment' 'terminal'
+```
 
 Archive
 -------
 
 Provides functions to list and extract archives.
 
+Autosuggestions
+---------------
+
+Integrates zsh-autosuggestions into Prezto.
+
 Command-Not-Found
 -----------------
 
-Loads the command-not-found tool on Debian-based distributions.
+Loads the command-not-found tool on macOS or Debian-based distributions.
 
 Completion
 ----------
@@ -25,6 +32,11 @@ Directory
 ---------
 
 Sets directory options and defines directory aliases.
+
+DNF
+---
+
+Defines dnf aliases.
 
 Dpkg
 ----
@@ -92,7 +104,7 @@ Homebrew
 
 Defines Homebrew aliases.
 
-Macports
+MacPorts
 --------
 
 Defines MacPorts aliases and adds MacPorts directories to path variables.
@@ -110,7 +122,7 @@ Initializes OCaml package management.
 OSX
 ---
 
-Defines Mac OS X aliases and functions.
+Defines macOS aliases and functions.
 
 Pacman
 ------
@@ -120,7 +132,7 @@ Provides aliases and functions for the Pacman package manager and frontends.
 Perl
 ----
 
-Enables local Perl module installation on Mac OS X and defines alises.
+Enables local Perl module installation on macOS and defines alises.
 
 Prompt
 ------
