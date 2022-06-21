@@ -28,9 +28,23 @@ function +vi-git_precmd() {
   fi
 }
 
+function prompt_giddie_preexec {
+  _prompt_giddie_timer=$(date +%s%3N)
+}
+
 function prompt_giddie_precmd {
   # Replace '/home/<user>' with '~'.
   _prompt_giddie_pwd="${PWD/#$HOME/~}"
+
+  # Elapsed time
+  if [ $_prompt_giddie_timer ]; then
+    local now=$(date +%s%3N)
+    _prompt_giddie_elapsed_time=$(($now-$_prompt_giddie_timer))
+    unset _prompt_giddie_timer
+  else
+    _prompt_giddie_elapsed_time=0
+  fi
+
   vcs_info
 }
 
@@ -44,6 +58,7 @@ function prompt_giddie_setup {
   autoload -Uz add-zsh-hook
 
   # Add hook to set up prompt parameters before each command.
+  add-zsh-hook preexec prompt_giddie_preexec
   add-zsh-hook precmd prompt_giddie_precmd
 
   # Tell prezto we can manage this prompt
@@ -68,10 +83,10 @@ function prompt_giddie_setup {
   zstyle ':vcs_info:*+set-message:*' hooks set_vcs_prompt_symbol
 
   # Define prompts.
-  PROMPT='%(?..%F{red}%B-> [%?]%b%f
-)%F{magenta}%n%f@%F{yellow}%m%f|%F{green}${_prompt_giddie_pwd}%f${vcs_info_msg_0_}
+  PROMPT='%F{#555}-> ${_prompt_giddie_elapsed_time}ms%f%(?.. %F{red}%B[%?]%b%f)
+%F{magenta}%n%f@%F{yellow}%m%f|%F{green}${_prompt_giddie_pwd}%f${vcs_info_msg_0_}
 %F{blue}${_prompt_giddie_symbol}%f '
-  RPROMPT='${editor_info[keymap]} %F{#666}%D{%Y-%m-%d %H:%M:%S}%f'
+  RPROMPT='${editor_info[keymap]}'
   SPROMPT='zsh: correct %F{magenta}%R%f to %F{green}%r%f [nyae]? '
 }
 
