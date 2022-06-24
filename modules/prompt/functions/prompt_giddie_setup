@@ -34,18 +34,26 @@ function prompt_giddie_preexec {
 
 function prompt_giddie_precmd {
   # Replace '/home/<user>' with '~'.
-  _prompt_giddie_pwd="${PWD/#$HOME/~}"
+  local prompt_pwd="${PWD/#$HOME/~}"
 
   # Elapsed time
   if [ $_prompt_giddie_timer ]; then
     local now=$(date +%s%3N)
-    _prompt_giddie_elapsed_time=$(($now-$_prompt_giddie_timer))
+    local elapsed_time=$(($now-$_prompt_giddie_timer))
+    local prompt_elapsed_time="%F{#555}-> ${elapsed_time}ms%f"
     unset _prompt_giddie_timer
-  else
-    _prompt_giddie_elapsed_time=0
+  fi
+
+  if [ $prompt_elapsed_time ]; then
+    local prompt_return_value='%(?.. %F{red}%B[%?]%b%f)'
+    local prompt_prefix_line="${prompt_elapsed_time}${prompt_return_value}
+"
   fi
 
   vcs_info
+
+  PROMPT="${prompt_prefix_line}%F{magenta}%n%f@%F{yellow}%m%f|%F{green}${prompt_pwd}%f\${vcs_info_msg_0_}
+%F{blue}\${_prompt_giddie_symbol}%f "
 }
 
 function prompt_giddie_setup {
@@ -82,10 +90,6 @@ function prompt_giddie_setup {
   zstyle ':vcs_info:git*+set-message:*' hooks set_vcs_prompt_symbol git_precmd
   zstyle ':vcs_info:*+set-message:*' hooks set_vcs_prompt_symbol
 
-  # Define prompts.
-  PROMPT='%F{#555}-> ${_prompt_giddie_elapsed_time}ms%f%(?.. %F{red}%B[%?]%b%f)
-%F{magenta}%n%f@%F{yellow}%m%f|%F{green}${_prompt_giddie_pwd}%f${vcs_info_msg_0_}
-%F{blue}${_prompt_giddie_symbol}%f '
   RPROMPT='${editor_info[keymap]}'
   SPROMPT='zsh: correct %F{magenta}%R%f to %F{green}%r%f [nyae]? '
 }
