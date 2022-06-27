@@ -33,6 +33,8 @@ function prompt_giddie_preexec {
 }
 
 function prompt_giddie_precmd {
+  local command_status=$?
+
   # Replace '/home/<user>' with '~'.
   local prompt_pwd="${PWD/#$HOME/~}"
 
@@ -40,13 +42,18 @@ function prompt_giddie_precmd {
   if [ $_prompt_giddie_timer ]; then
     local now=$(date +%s%3N)
     local elapsed_time=$(($now-$_prompt_giddie_timer))
-    local prompt_elapsed_time="%F{#555}-> ${elapsed_time}ms%f"
+    local prompt_elapsed_time="%F{#555}$(printf "%'d" $elapsed_time)ms%f"
     unset _prompt_giddie_timer
   fi
 
   if [ $prompt_elapsed_time ]; then
-    local prompt_return_value='%(?.. %F{red}%B[%?]%b%f)'
-    local prompt_prefix_line="${prompt_elapsed_time}${prompt_return_value}
+    if [[ $command_status == 0 ]]; then
+      local prompt_prefix_line="%F{#555}-> %f"
+    else
+      local prompt_prefix_line="%F{red}%B-> [%?]%b%f "
+    fi
+
+    local prompt_prefix_line="${prompt_prefix_line}${prompt_elapsed_time}
 "
   fi
 
