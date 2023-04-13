@@ -29,3 +29,9 @@
 	path = modules/prompt/external/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
 	shallow = true
+[submodule "modules/fzf-tab/external/fzf-tab"]
+	path = modules/fzf-tab/external/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab
+[submodule "modules/fzf-tab/external/fzf-tab-source"]
+	path = modules/fzf-tab/external/fzf-tab-source
+	url = https://github.com/Freed-Wu/fzf-tab-source
