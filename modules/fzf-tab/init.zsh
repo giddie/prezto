@@ -25,6 +25,8 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 
+zstyle ':fzf-tab:*' fzf-min-height '10'
+
 # Work around issue rendering multiline-prompts with no completions
 zstyle -d ':prezto:module:editor:info:completing' format
 
