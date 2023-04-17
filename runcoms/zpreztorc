@@ -45,6 +45,7 @@ zstyle ':prezto:load' pmodule \
   'wakeonlan' \
   'syntax-highlighting' \
   'history-substring-search' \
+  'autosuggestions' \
   'prompt' \
   'fzf-tab' \
   'misc'
