@@ -38,16 +38,6 @@ function prompt_giddie_precmd {
   # Replace '/home/<user>' with '~'.
   local prompt_pwd="${PWD/#$HOME/~}"
 
-  if zstyle -t ':prezto:module:prompt' host-indicator; then
-    local hostname=$(uname -n)
-    zstyle -a ':prezto:module:prompt' host-indicator-exclude host_indicator_exclude
-    if (( !$host_indicator_exclude[(Ie)$hostname] )); then
-      local hostname_hash=$(echo $hostname | cksum | cut -d' ' -f1)
-      local hostname_color=$(($hostname_hash % 256))
-      local host_indicator="%F{$hostname_color}⯀%f "
-    fi
-  fi
-
   # Elapsed time
   if [ $_prompt_giddie_timer ]; then
     local now=$(date +%s%3N)
@@ -68,6 +58,8 @@ function prompt_giddie_precmd {
   fi
 
   vcs_info
+
+  zstyle -s ':prezto:module:prompt' host-indicator-string host_indicator
 
   PROMPT="${prompt_prefix_line}%F{magenta}%n%f@%F{yellow}%m%f|%F{green}${prompt_pwd}%f\${vcs_info_msg_0_}
 $host_indicator%F{blue}\${_prompt_giddie_symbol}%f "
@@ -106,6 +98,16 @@ function prompt_giddie_setup {
   zstyle ':vcs_info:*+start-up:*' hooks set_novcs_prompt_symbol
   zstyle ':vcs_info:git*+set-message:*' hooks set_vcs_prompt_symbol git_precmd
   zstyle ':vcs_info:*+set-message:*' hooks set_vcs_prompt_symbol
+
+  if zstyle -t ':prezto:module:prompt' host-indicator; then
+    local hostname=$(uname -n)
+    zstyle -a ':prezto:module:prompt' host-indicator-exclude host_indicator_exclude
+    if (( !$host_indicator_exclude[(Ie)$hostname] )); then
+      local hostname_hash=$(echo $hostname | cksum | cut -d' ' -f1)
+      local host_color=$(($hostname_hash % 256))
+      zstyle ':prezto:module:prompt' host-indicator-string "%F{$host_color}⯀%f "
+    fi
+  fi
 
   RPROMPT='${editor_info[keymap]}'
   SPROMPT='zsh: correct %F{magenta}%R%f to %F{green}%r%f [nyae]? '
