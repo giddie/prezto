@@ -162,6 +162,8 @@ zstyle ':prezto:module:utility' ls-after-cd 'yes'
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
 zstyle ':prezto:module:prompt' theme 'giddie'
+zstyle ':prezto:module:prompt' host-indicator 'yes'
+zstyle ':prezto:module:prompt' host-indicator-exclude 'Freja'
 
 # Set the working directory prompt display length.
 # By default, it is set to 'short'. Set it to 'long' (without '~' expansion)

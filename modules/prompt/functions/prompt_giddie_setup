@@ -38,6 +38,16 @@ function prompt_giddie_precmd {
   # Replace '/home/<user>' with '~'.
   local prompt_pwd="${PWD/#$HOME/~}"
 
+  if zstyle -t ':prezto:module:prompt' host-indicator; then
+    local hostname=$(uname -n)
+    zstyle -a ':prezto:module:prompt' host-indicator-exclude host_indicator_exclude
+    if (( !$host_indicator_exclude[(Ie)$hostname] )); then
+      local hostname_hash=$(echo $hostname | cksum | cut -d' ' -f1)
+      local hostname_color=$(($hostname_hash % 256))
+      local host_indicator="%F{$hostname_color}⯀%f "
+    fi
+  fi
+
   # Elapsed time
   if [ $_prompt_giddie_timer ]; then
     local now=$(date +%s%3N)
@@ -60,7 +70,7 @@ function prompt_giddie_precmd {
   vcs_info
 
   PROMPT="${prompt_prefix_line}%F{magenta}%n%f@%F{yellow}%m%f|%F{green}${prompt_pwd}%f\${vcs_info_msg_0_}
-%F{blue}\${_prompt_giddie_symbol}%f "
+$host_indicator%F{blue}\${_prompt_giddie_symbol}%f "
 }
 
 function prompt_giddie_setup {
