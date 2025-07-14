@@ -30,5 +30,7 @@ zstyle ':fzf-tab:*' fzf-min-height '10'
 # Work around issue rendering multiline-prompts with no completions
 zstyle -d ':prezto:module:editor:info:completing' format
 
-source "${0:h}/external/fzf-tab/fzf-tab.plugin.zsh" || return 1
-source "${0:h}/external/fzf-tab-source/fzf-tab-source.plugin.zsh" || return 1
+if (( $+commands[fzf] )); then
+  source "${0:h}/external/fzf-tab/fzf-tab.plugin.zsh" || return 1
+  source "${0:h}/external/fzf-tab-source/fzf-tab-source.plugin.zsh" || return 1
+fi
