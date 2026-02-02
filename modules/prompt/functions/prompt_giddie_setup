@@ -105,7 +105,7 @@ function prompt_giddie_setup {
     if (( !$host_indicator_exclude[(Ie)$hostname] )); then
       local hostname_hash=$(echo $hostname | cksum | cut -d' ' -f1)
       local host_color=$(($hostname_hash % 256))
-      zstyle ':prezto:module:prompt' host-indicator-string "%F{$host_color}⯀%f "
+      zstyle ':prezto:module:prompt' host-indicator-string "%F{$host_color}██%f "
     fi
   fi
 
