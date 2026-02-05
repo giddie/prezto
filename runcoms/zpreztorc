@@ -215,8 +215,8 @@ zstyle ':prezto:module:prompt' host-indicator-exclude 'Freja'
 # By default, only the main highlighter is enabled.
 zstyle ':prezto:module:syntax-highlighting' highlighters \
   'main' \
-  'brackets' \
-  'root'
+  'brackets'
+#  'root' \
 #  'pattern' \
 #  'cursor' \
 
